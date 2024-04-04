@@ -5,31 +5,63 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   </head>
 
-  <body>
-    <header>
-
-      <nav>
-        <div class="nav-wrapper">
-          <form>
-            <div class="input-field black">
-              <input id="search" type="search" required>
-              <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-              <i class="material-icons">close</i>
-            </div>
-          </form>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    nav {
+      background-color: #1976D2;
+    }
+    nav ul li a {
+      color: #fff;
+    }
+    .carousel {
+      height: 300px;
+    }
+    .carousel img {
+      height: 300px;
+      object-fit: cover;
+    }
+    .container {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">FrameRate</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Profile</a></li>
+      </ul>
+    </div>
+  </nav>
+  <!-- Search Bar -->
+  <div class="container">
+    <div class="row">
+      <div class="col s12">
+        <div class="input-field">
+          <input id="search" type="text" class="validate">
+          <label for="search">Search</label>
         </div>
-      </nav>
-
-      <main>
-
-      </main>
-    </header>
-    <!--JavaScript at end of body for optimized loading-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  </body>
+      </div>
+    </div>
+  </div>
+  <!-- Materialize JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var elems = document.querySelectorAll(".carousel");
+      var instances = M.Carousel.init(elems, {
+        fullWidth: true
+      });
+    });
+  </script>
+</body>
 </html>
