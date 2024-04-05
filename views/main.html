@@ -8,11 +8,18 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <!--Let browser know website is optimized for mobile-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+    rel="stylesheet">
 </head>
 
 <style>
   body {
-    font-family: Arial, sans-serif;
+    font-family: "Rubik", Arial, sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
   }
 
   nav {
@@ -45,9 +52,18 @@
   .custom-brand-logo {
     margin-left: 20px;
   }
+
   .input-field input[type="text"]:focus {
-      border-bottom-color: #f44336  !important; /* Change to your desired color */
-      box-shadow: 0 1px 0 0 #f44336  !important; /* Change to your desired color */
+    border-bottom-color: #f44336 !important;
+    box-shadow: 0 1px 0 0 #f44336 !important;
+  }
+
+  .input-field input[type="text"]:focus+label {
+    color: white !important;
+  }
+
+  .input-field input[type="text"] {
+      color: white;
     }
 </style>
 </head>
