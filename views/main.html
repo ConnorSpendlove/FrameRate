@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+
+  nav {
+    background-color: #1976D2;
+  }
+
+  nav ul li a {
+    color: #fff;
+  }
+
+  .carousel {
+    height: 300px;
+  }
+
+  .carousel img {
+    height: 300px;
+    object-fit: cover;
+  }
+
+  .container {
+    margin-top: 20px;
+  }
+
+  .custom-nav {
+    max-width: 80%;
+    margin: 0 auto;
+    margin-top: 1%;
+  }
+
+  .custom-brand-logo {
+    margin-left: 20px;
+  }
+  .input-field input[type="text"]:focus {
+      border-bottom-color: #f44336  !important; /* Change to your desired color */
+      box-shadow: 0 1px 0 0 #f44336  !important; /* Change to your desired color */
+    }
+</style>
+</head>
+
+<body class="grey darken-4">
+  <!-- Navbar -->
+  <nav class="custom-nav red">
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo custom-brand-logo">FrameRate</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Profile</a></li>
+      </ul>
+    </div>
+  </nav>
+  <!-- Search Bar -->
+  <div class="container">
+    <div class="row">
+      <div class="col s12">
+        <div class="input-field">
+          <input id="search" type="text" class="validate">
+          <label for="search">Search</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Materialize JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var elems = document.querySelectorAll(".carousel");
+      var instances = M.Carousel.init(elems, {
+        fullWidth: true
+      });
+    });
+  </script>
+</body>
+
+</html>
