@@ -28,7 +28,7 @@ const sess = {
 app.use(session(sess));
 
 // Create an instance of Express Handlebars
-const hbs = exphbs.create({ defaultLayout: 'main' });
+const hbs = exphbs.create({});
 
 // Set up Handlebars as the template engine
 app.engine('handlebars', hbs.engine);
