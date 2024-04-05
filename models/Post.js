@@ -19,13 +19,6 @@ Post.init(
             type: DataTypes.STRING(500),
             allowNull: false,
         },
-        game_id : {
-            type: DataTypes.INTEGER,
-            references: {
-                model: 'game',
-                key: 'id'
-            }
-        },
         user_id : {
             type: DataTypes.INTEGER,
             references: {
