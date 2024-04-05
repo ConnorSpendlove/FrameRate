@@ -22,21 +22,39 @@
     font-style: normal;
   }
 
-  nav {
-    background-color: #1976D2;
-  }
-
   nav ul li a {
     color: #fff;
   }
 
   .carousel {
-    height: 300px;
+    height: 400px;
+    position: relative;
   }
 
   .carousel img {
     height: 300px;
     object-fit: cover;
+  }
+
+.plus-sign-container {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    pointer-events: none;
+    width: 100px;
+    height: 100px;
+  }
+
+  .plus-sign-container img {
+    width: 100%;
+    height: auto;
+  }
+
+  .carousel-item:hover .plus-sign-container {
+    display: block;
+    opacity: 1;
   }
 
   .container {
@@ -63,8 +81,8 @@
   }
 
   .input-field input[type="text"] {
-      color: white;
-    }
+    color: white;
+  }
 </style>
 </head>
 
@@ -91,15 +109,17 @@
     </div>
   </div>
 
-  {{body}}
-  
+  {{{body}}}
+
+  {{!-- JQuery --}}
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
   <!-- Materialize JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.carousel');
-    var instances = M.Carousel.init(elems, options);
-  });
+    // We can customize the carousel by putting parameters in the carousel() function. For example, carousel({fullWidth: true}) would make the carousel a full width slider.
+    $(document).ready(function () {
+      $('.carousel').carousel();
+    }); 
   </script>
 </body>
 
