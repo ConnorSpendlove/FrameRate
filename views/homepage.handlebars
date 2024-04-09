@@ -1,7 +1,7 @@
 <!-- Carousel -->
 <div class="carousel">
 
-  <a class="carousel-item" href="#one!">
+  <a class="carousel-item modal-trigger" href="#modal1">
     <img
       src="mario.PNG">
     <div class="plus-sign-container">
@@ -11,7 +11,7 @@
     </div>
   </a>
 
-  <a class="carousel-item" href="#two!">
+  <a class="carousel-item modal-trigger" href="#modal1">
     <img
       src="https://images-ext-1.discordapp.net/external/gU8GW1zFDvt9e2pM1B9KYBHKKf7juw611RUju30sYPk/https/ih1.redbubble.net/image.1742139659.2435/flat%2C750x%2C075%2Cf-pad%2C750x1000%2Cf8f8f8.jpg?format=webp&width=507&height=676">
     <div class="plus-sign-container">
@@ -21,7 +21,7 @@
     </div>
   </a>
 
-  <a class="carousel-item" href="#three!">
+  <a class="carousel-item modal-trigger" href="#modal1">
     <img
       src="https://media.discordapp.net/attachments/1002115000313331812/1225880884696056020/s30l51p93g8a1.png?ex=6622bd8a&is=6610488a&hm=4f8471ce2837d3197cc9d489b59b0d970fa3c763e3b6a2d968cb235553ea7673&=&format=webp&quality=lossless&width=350&height=350">
     <div class="plus-sign-container">
@@ -31,7 +31,7 @@
     </div>
   </a>
 
-  <a class="carousel-item" href="#four!">
+  <a class="carousel-item modal-trigger" href="#modal1">
     <img
       src="https://media.discordapp.net/attachments/1002115000313331812/1225881746558423150/il_1080xN.png?ex=6622be58&is=66104958&hm=b5da91030c04fcdea69f27dd62e3096fe48d0a68cb14d7f0e859cccbd312fb58&=&format=webp&quality=lossless&width=175&height=350">
     <div class="plus-sign-container">
@@ -41,7 +41,7 @@
     </div>
   </a>
 
-  <a class="carousel-item" href="#five!">
+  <a class="carousel-item modal-trigger" href="#modal1">
     <img
       src="https://media.discordapp.net/attachments/1002115000313331812/1225887936499683449/image.png?ex=6622c41b&is=66104f1b&hm=c34523398f729fcf390ed5d97d164323377b39a86903515792318e8f06d1625f&=&format=webp&quality=lossless&width=507&height=675">
     <div class="plus-sign-container">
@@ -89,3 +89,51 @@
     <img class="plus-sign" src="../public/assets/add-sign.png" alt="Plus Sign">
   </div>
 </a> --}}
+
+
+{{! Modal }}
+
+  <div id="modal1" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      {{! This is where posts and comments will go }}
+
+      {{! Create Posts here }}
+      <div class="row grey-text">
+        <form class="col s12">
+          <div class="row">
+            <div class="input-field col s12">
+              <textarea id="textarea1" class="materialize-textarea"></textarea>
+              <label class="black-text" for="textarea1">Write your post here</label>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="container">
+
+        <!-- Post content from others -->
+        {{!-- {{each}} --}}
+        <div style="padding: 15px; background-color: rgb(242, 242, 242); border-radius: 5px;">
+          <p><span style="margin-right: 10px;"><i class="material-icons">account_box</i></span><strong>Username</strong></p>
+          <p style="margin-left: 10px;">Hello, This is a post</p>
+        </div>
+        {{!-- {{/each}} --}}
+
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button
+        class="btn waves-effect waves-light red darken-4"
+        type="submit"
+        name="action"
+      >Post
+        <i class="material-icons right">add_box</i>
+      </button>
+      <a
+        href="#!"
+        class="modal-close waves-effect waves-green btn-flat"
+      >Close</a>
+    </div>
+  </div>
+</div>
