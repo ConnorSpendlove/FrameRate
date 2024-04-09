@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 router.get('/', (req, res) => {
-  res.render('profile', { title: 'Game Browser' });
+  res.render('homepage', { title: 'Game Browser' });
 });
 
 // router.get('/profile', (req, res) => {
