@@ -1,0 +1,27 @@
+<div id="redProfileCard" class="card red darken-2">
+  <p class="card-title" id="gameTitle">{{gameTitle}}</p>
+  <p>Rating: {{rating}}/10</p>
+  <p>Review: {{review}}</p>
+  <p>Completion Time: {{hoursTaken}} hours</p>
+  <button id = "deleteButton"onclick="deleteReview(event)" data-id="{{id}}">Delete Review</button>
+</div>
+
+<script>
+async function deleteReview(event) {
+  if (event.target.hasAttribute('data-id')) {
+    const id = event.target.getAttribute('data-id');
+
+    const response = await fetch(`/api/user/game/${id}`, {
+      method: 'DELETE',
+    });
+
+    if (response.ok) {
+      // Assuming you want to refresh the page after deleting the review
+      document.location.reload();
+    } else {
+      alert('Failed to delete review');
+    }
+  }
+}
+</script>
+    

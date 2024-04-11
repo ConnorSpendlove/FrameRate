@@ -15,11 +15,11 @@ router.get('/profile', async (req, res) => {
     }
 
     // Fetch posts associated with the logged-in user from the database
-    // const userId = req.session.user_id;
-    // const userPosts = await Post.findAll({ where: { userId } });
-
+    const userPosts = await Post.findAll({ where: { userId: req.session.user_id } });
+    const profiles = userPosts.map((post) => post.get({plain: true}))
+     
     // Render the profile page and pass the user's posts to the template
-    res.render('profile', { });
+    res.render('profile', {profiles});
   } catch (error) {
     console.error('Error fetching user posts:', error);
     res.status(500).json({ error: 'Internal server error' });

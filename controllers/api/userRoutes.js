@@ -7,6 +7,7 @@ const { User, Post } = require('../../models');
 router.post('/signup', async (req, res) => {
   try {
       const { username, password } = req.body;
+      console.log(req.body)
 
       // Check if username already exists
       const existingUser = await User.findOne({ where: { username } });
@@ -144,6 +145,8 @@ router.delete('/game/:id', async (req, res) => {
     res.status(500).json(err);
   }
 });
+
+
 
 
 module.exports = router;
