@@ -53,6 +53,7 @@
         });
         if (response.ok) {
             console.log('Account created successfully!');
+            alert("Account created successfully!")
             window.location.href = '/'; // Redirect to homepage or another page
         } else {
             const data = await response.json();
@@ -91,6 +92,7 @@ document.getElementById('login-btn').addEventListener('click', async (e) => {
         // Handle the response
         if (response.ok) {
             console.log('Logged in successfully!');
+            alert("Logged in successfully!")
             window.location.href = '/'; // Redirect to homepage or another page
         } else {
             const data = await response.json();

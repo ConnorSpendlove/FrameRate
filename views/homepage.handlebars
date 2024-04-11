@@ -182,15 +182,19 @@ async function getUserId() {
     if (response.ok) {
       // Parse the response body as JSON to get the new post data
       const newPostData = await response.json();
+      alert("New post added successfully")
+      window.location.href = "profile";
       
       // Now you can use newPostData to update the UI or perform any other actions
       console.log('New post added successfully:', newPostData);
     } else {
       console.error('Failed to add post:', response.statusText);
+      alert("Failed to add post")
       // Handle error response
     }
   } catch (error) {
     console.error('Error adding post:', error);
+    alert("Error adding post")
     // Handle network errors or other exceptions
   }
 });
