@@ -1,4 +1,4 @@
-  <!-- Search Bar -->
+{{!-- <!-- Search Bar -->
   <div class="container">
     <div class="row"> 
       <div class="col s6">
@@ -8,7 +8,11 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> --}}
+<div class="center-align" style="margin-top: 70px;">
+  <button id="create-review-btn" class="btn waves-effect waves-light red darken-4" style="border-radius: 5px; margin-top: 10px;" type="button" name="action"> Create a Review <i class="material-icons right">arrow_forward</i></button>
+</div>
+
 
 <!-- Carousel -->
 <div class="carousel">
@@ -65,74 +69,37 @@
 
 </div>
 
-{{!-- When I use images saved to the computer it doesn't work. --}}
-
-{{!-- <a class="carousel-item" href="#one!">
-  <img src="../public/assets/dark-souls.png">
-  <div class="plus-sign-container">
-    <img class="plus-sign" src="../public/assets/add-sign.png" alt="Plus Sign">
-  </div>
-</a>
-
-<a class="carousel-item" href="#two!">
-  <img src="../public/assets/donkey-kong.png">
-  <div class="plus-sign-container">
-    <img class="plus-sign" src="../public/assets/add-sign.png" alt="Plus Sign">
-  </div>
-</a>
-
-<a class="carousel-item" href="#three!">
-  <img src="../public/assets/mario.PNG">
-  <div class="plus-sign-container">
-    <img class="plus-sign" src="../public/assets/add-sign.png" alt="Plus Sign">
-  </div>
-</a>
-
-<a class="carousel-item" href="#four!">
-  <img src="../public/assets/metal-gear.jpg">
-  <div class="plus-sign-container">
-    <img class="plus-sign" src="../public/assets/add-sign.png" alt="Plus Sign">
-  </div>
-</a>
-
-<a class="carousel-item" href="#five!">
-  <img src="../public/assets/uncharted.png">
-  <div class="plus-sign-container">
-    <img class="plus-sign" src="../public/assets/add-sign.png" alt="Plus Sign">
-  </div>
-</a> --}}
-
-
 {{! Modal }}
-
   <div id="modal1" class="modal modal-fixed-footer">
     <div class="modal-content">
-      {{! This is where posts and comments will go }}
-
-      {{! Create Posts here }}
       <div class="row grey-text">
-        <form class="col s12">
-          <div class="row">
-            <div class="input-field col s12">
-              <textarea id="textarea1" class="materialize-textarea"></textarea>
-              <label class="black-text" for="textarea1">Enter game title here</label>
-            </div>
-             <div class="input-field col s12">
-              <textarea id="textarea1" class="materialize-textarea"></textarea>
-              <label class="black-text" for="textarea2">Add review here</label>
-            </div>
-              <div class="input-field col s12">
-              <textarea id="textarea1" class="materialize-textarea"></textarea>
-              <label class="black-text" for="textarea3">Hours taken to complete:</label>
-            </div>
-          </div>
-        </form>
-      </div>
+<form id="post-form" class="col s12">
+    <div class="row">
+        <div class="input-field col s12">
+            <input id="game-title" class="validate black-text" type="text">
+            <label class="black-text" for="game-title">Enter game title here</label>
+        </div>
+        <div class="input-field col s12">
+            <textarea id="review" class="materialize-textarea validate black-text"></textarea>
+            <label class="black-text" for="review">Add review here</label>
+        </div>
+        <div class="input-field col s12">
+            <input id="hours-taken" class="validate black-text" type="number">
+            <label class="black-text" for="hours-taken">Hours taken to complete</label>
+        </div>
+        <div class="input-field col s12">
+            <input id="rating" class="validate black-text" type="number">
+            <label class="black-text" for="rating">Rating /10</label>
+        </div>
+    </div>
+</form>
 
-
+</div>
+</button>
     </div>
     <div class="modal-footer">
       <button
+        id = "add-post-btn"
         class="btn waves-effect waves-light red darken-4"
         type="submit"
         name="action"
@@ -150,3 +117,67 @@
 <div class="container">
         
       </div>
+
+<script>
+  document.getElementById('create-review-btn').addEventListener('click', function() {
+    var elem = document.querySelector('.modal');
+    var instance = M.Modal.init(elem);
+    instance.open();
+    });
+    
+
+async function getUserId() {
+  try {
+    const response = await fetch('/api/user/session');
+    const sessionData = await response.json();
+    return sessionData.userId;
+  } catch (error) {
+    console.error('Error fetching session data:', error);
+    return null;
+  }
+}
+  document.getElementById('add-post-btn').addEventListener('click', async () => {
+  // Get the values from the input fields
+  const gameTitle = document.getElementById('game-title').value.trim();
+  const review = document.getElementById('review').value.trim();
+  const hoursTaken = document.getElementById('hours-taken').value.trim();
+  const rating = document.getElementById('rating').value.trim();
+  const userId = await getUserId();
+
+  // Create the postData object
+  const postData = {
+    gameTitle,
+    review,
+    hoursTaken,
+    rating,
+    userId
+    // Include any other data you need for the post
+  };
+
+  try {
+    const response = await fetch('/api/user/game', {
+      method: 'POST',
+      body: JSON.stringify(postData),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (response.ok) {
+      // Parse the response body as JSON to get the new post data
+      const newPostData = await response.json();
+      
+      // Now you can use newPostData to update the UI or perform any other actions
+      console.log('New post added successfully:', newPostData);
+    } else {
+      console.error('Failed to add post:', response.statusText);
+      // Handle error response
+    }
+  } catch (error) {
+    console.error('Error adding post:', error);
+    // Handle network errors or other exceptions
+  }
+});
+
+
+</script>

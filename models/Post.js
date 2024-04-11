@@ -1,28 +1,36 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
+const User = require('./User'); // Import the User model
 
 class Post extends Model {}
-
 Post.init(
     {
-        id : {
+        id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             primaryKey: true,
             autoIncrement: true
         },
-        rating : {
-            type: DataTypes.INTEGER,
+        gameTitle: {
+            type: DataTypes.STRING(40),
+            allowNull: false,
+        },
+        hoursTaken: {
+            type: DataTypes.STRING(5),
+            allowNull: true
+        },
+        rating: {
+            type: DataTypes.STRING(2),
             allowNull: false
         },
-        user_review : {
+        review: {
             type: DataTypes.STRING(500),
             allowNull: false,
         },
-        user_id : {
+        userId: { // Renamed to follow Sequelize conventions
             type: DataTypes.INTEGER,
             references: {
-                model: 'user',
+                model: User, // Reference the User model
                 key: 'id'
             }
         }
@@ -35,5 +43,8 @@ Post.init(
         modelName: 'post',
     }
 );
+
+// Establish the association
+Post.belongsTo(User, { foreignKey: 'userId' });
 
 module.exports = Post;

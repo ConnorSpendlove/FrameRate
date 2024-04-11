@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { User } = require('../../models');
-
+const withAuth = require('../../utils/auth');
+const { User, Post } = require('../../models');
 
 // Route to handle user sign-up
 router.post('/signup', async (req, res) => {
@@ -11,12 +11,12 @@ router.post('/signup', async (req, res) => {
       // Check if username already exists
       const existingUser = await User.findOne({ where: { username } });
       if (existingUser) {
-          return res.status(400).json({ message: 'Username already exists' });
+          alert("That name already exists")
       }
 
       // Check password length
       if (password.length < 8) {
-          return res.status(400).json({ message: 'Password must be at least 8 characters long' });
+         alert('Password must be at least 8 characters long')
       }
 
       // Create new user
@@ -70,6 +70,19 @@ router.post('/signin', async (req, res) => {
   }
 });
 
+router.get('/session', (req, res) => {
+  // Check if the user is logged in
+  const loggedIn = req.session.logged_in || false;
+  
+  // Retrieve the userId from the session data
+  const userId = req.session.user_id || null;
+
+  // Return the session data as JSON
+  res.json({ loggedIn, userId });
+});
+
+
+
 // Route to handle user logout
 router.post('/logout', (req, res) => {
     if (req.session.logged_in) {
@@ -92,6 +105,43 @@ router.get('/users', async (req, res) => {
       // Handle any errors that occur
       console.error('Error fetching users:', error);
       res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+// Route to handle creating a new post
+router.post('/game', async (req, res) => {
+  console.log('Request:', req); // Log the entire request object
+  try {
+    const newPost = await Post.create({
+      ...req.body,
+      user_id: req.session.user_id,
+    });
+    console.log('Payload received:', req.body);
+
+    res.status(200).json(newPost);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
+router.delete('/game/:id', async (req, res) => {
+  try {
+    const postData = await Post.destroy({
+      where: {
+        id: req.params.id,
+        user_id: req.session.user_id,
+      },
+    });
+
+    if (!postData) {
+      res.status(404).json({ message: 'No post found with this id!' });
+      return;
+    }
+
+    res.status(200).json(postData);
+  } catch (err) {
+    res.status(500).json(err);
   }
 });
 
