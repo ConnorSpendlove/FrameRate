@@ -1,48 +1,108 @@
-<div
-  class="container grey darken-3"
-  style="margin-bottom: 50px; padding: 25px; border-radius: 10px;"
->
+<div class="container grey darken-3" style="margin-bottom: 50px; padding: 25px; border-radius: 10px;">
   <div class="row">
-
-    <h4 class="white-text" style="margin-bottom: 40px;">Sign into your account</h4>
-
     <div class="col s6">
-
-      <div class="row">
-        <form class="col s12">
-          <div class="row">
-            <div class="input-field col s12" style="margin-bottom: 0px;">
-              <textarea
-                id="user-signin"
-                class="materialize-textarea"
-              ></textarea>
-              <label for="user-signin">Username</label>
-            </div>
+      <h4 class="white-text" style="margin-bottom: 40px;">Create a new account</h4>
+      <form id="signup-form">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="user-signup" type="text" class="validate">
+            <label for="user-signup">Username</label>
           </div>
-        </form>
-      </div>
-      <div class="row">
-        <form class="col s12 center-align">
-          <div class="row center-align">
-            <div class="input-field col s12">
-              <textarea
-                id="pass-signin"
-                class="materialize-textarea"
-              ></textarea>
-              <label for="pass-signin">Password</label>
-            </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="pass-signup" type="password" class="validate">
+            <label for="pass-signup">Password (must be > 8 charcters)</label>
           </div>
-        </form>
-      </div>
-
-      <button
-        class="btn waves-effect waves-light red darken-4"
-        style="margin-bottom: 50px; border-radius: 5px;"
-        type="submit"
-        name="action"
-      >Login
-        <i class="material-icons right">arrow_forward</i>
-      </button>
+        </div>
+        <button id="signup-btn" class="btn waves-effect waves-light red darken-4" style="border-radius: 5px;" type="submit" name="action">Sign Up <i class="material-icons right">arrow_forward</i></button>
+      </form>
+    </div>
+    <div class="col s6">
+      <h4 class="white-text" style="margin-bottom: 40px;">Sign into your account</h4>
+      <form id="signin-form">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="user-signin" type="text" class="validate">
+            <label for="user-signin">Username</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="pass-signin" type="password" class="validate">
+            <label for="pass-signin">Password </label>
+          </div>
+        </div>
+        <button id="login-btn" class="btn waves-effect waves-light red darken-4" style="border-radius: 5px;" type="submit" name="action">Login <i class="material-icons right">arrow_forward</i></button>
+      </form>
     </div>
   </div>
 </div>
+<script>
+  document.getElementById('signup-btn').addEventListener('click', async (e) => {
+    e.preventDefault();
+
+    const username = document.getElementById('user-signup').value.trim();
+    const password = document.getElementById('pass-signup').value.trim();
+
+    try {
+        const response = await fetch('/api/user/signup', {
+            method: 'POST',
+            body: JSON.stringify({ username, password }),
+            headers: { 'Content-Type': 'application/json' }
+        });
+        if (response.ok) {
+            console.log('Account created successfully!');
+            window.location.href = '/'; // Redirect to homepage or another page
+        } else {
+            const data = await response.json();
+            console.error('Failed to create account:', data);
+            alert("Username is already taken or Password is too short (< 8 Characters)")
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+
+document.getElementById('login-btn').addEventListener('click', async (e) => {
+    e.preventDefault();
+
+    // Get the username and password from the input fields
+    const username = document.getElementById('user-signin').value.trim();
+    const password = document.getElementById('pass-signin').value.trim();
+    
+    // Log the username and password to check if they are correct
+    console.log('Username:', username);
+    console.log('Password:', password);
+
+    // Prepare the request body
+    const requestBody = {
+        username,
+        password
+    };
+
+     try {
+        const response = await fetch('/api/user/signin', {
+            method: 'POST',
+            body: JSON.stringify({ username, password }),
+            headers: { 'Content-Type': 'application/json' }
+        });
+
+        // Handle the response
+        if (response.ok) {
+            console.log('Logged in successfully!');
+            window.location.href = '/'; // Redirect to homepage or another page
+        } else {
+            const data = await response.json();
+            console.error('Failed to log in:', requestBody);
+            alert("Username or Password is not correct")
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+});
+
+
+
+
+</script>

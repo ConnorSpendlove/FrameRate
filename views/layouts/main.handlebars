@@ -12,7 +12,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="../../helpers/spacing.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
@@ -25,8 +24,9 @@
     <div class="nav-wrapper">
       <a href="/" class="brand-logo custom-brand-logo" style="font-family: Orbitron;">FrameRate</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="/">Home</a></li>
-        <li><a href="profile" style="margin-right: 20px;">Profile</a></li>
+        <li><a href="#" onclick="redirectToHomepage()">Home</a></li>
+        <li><a href="#" style="margin-right: 20px;" onclick="redirectToProfile()">Profile</a></li>
+        <li><a href="#" style="margin-right: 20px;" onclick="redirectToLogout()">Logout</a></li>
       </ul>
     </div>
   </nav>
@@ -59,6 +59,31 @@
     $('.modal').modal();
   });
 
+  function redirectToHomepage() {
+    window.location.href = "/";
+  }
+
+  function redirectToProfile() {
+    window.location.href = "/profile";
+  }
+
+ async function redirectToLogout() {
+  try {
+    const response = await fetch('/api/user/logout', {
+      method: 'POST'
+    });
+
+    if (response.ok) {
+      console.log('Logged out successfully!');
+      window.location.href = '/'; // Redirect to homepage or another page after successful logout
+    } else {
+      const data = await response.json();
+      console.error('Failed to log out:', data);
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
   </script>
 </body>
 

@@ -1,64 +1,46 @@
-<div class="col s12 m6" id="dashboard">
+<div class="col s12 m6">
   <div class="card red">
     <div class="card-content white-text">
-      <span class="card-title">Username</span>
+      <span class="card-title">{{ username }}</span>
     </div>
     <div class="card-action">
-      <a href="#" class="white-text">Frogger</a>
-      <p>Rating: 10/10</p>
-      <p>Hours: 1,230</p>
-      <p>Review: I really liked this game!</p>
-    </div>
-    <div class="card-action">
-      <a href="#" class="white-text">Game Name OR Post Title</a>
-      <p>Rating: </p>
-      <p>Hours: </p>
-      <p>Review: </p>
+      <a href="#" class="white-text">{{ gameTitle }}</a>
+      <p>Rating: {{ rating }}</p>
+      <p>Hours: {{ hours }}</p>
+      <p>Review: {{ review }}</p>
     </div>
   </div>
 </div>
 
-{{!-- <div class="col s12 m6">
-  <div class="carousel carousel-slider center" id="month-carousel">
-    <div class="carousel-item red white-text" href="#one!">
-      <h2>January</h2>
+<script>
+  // Function to fetch new review data and render it
+async function renderNewReview() {
+  try {
+    // Fetch new review data from the server
+    const response = await fetch('/api/user/game', {
+      method: 'POST',
+    });
+  
+    const newReviewData = await response.json();
 
-      <div class="row">
+    // Get the template script element
+    const templateSource = document.getElementById('review-card-template').innerHTML;
+    // Compile the Handlebars template
+    const template = Handlebars.compile(templateSource);
 
-        <div class="col s4">
-          <img src="mario.png">
-          <p><u>Super Mario Bros. 3</u></p>
-          <p>Rating: </p>
-          <p>Hours: </p>
-        </div>
+    // Render the new review data using the template
+    const renderedReview = template(newReviewData);
 
-        <div class="col s4">
-          <img src="mario.png">
-          <p><u>Super Mario Bros. 3</u></p>
-          <p>Rating: </p>
-          <p>Hours: </p>
-        </div>
-        <div class="col s4">
-          <img src="mario.png">
-          <p><u>Super Mario Bros. 3</u></p>
-          <p>Rating: </p>
-          <p>Hours: </p>
-        </div>
+    // Append the rendered review HTML to the dashboard
+    document.getElementById('dashboard').insertAdjacentHTML('beforeend', renderedReview);
+  } catch (error) {
+    console.error('Error fetching new review data:', error);
+  }
+}
 
-      </div>
-    </div>
-    <div class="carousel-item amber white-text" href="#two!">
-      <h2>Second Panel</h2>
-      <p class="white-text">This is your second panel</p>
-    </div>
-    <div class="carousel-item green white-text" href="#three!">
-      <h2>Third Panel</h2>
-      <p class="white-text">This is your third panel</p>
-    </div>
-    <div class="carousel-item blue white-text" href="#four!">
-      <h2>Fourth Panel</h2>
-      <p class="white-text">This is your fourth panel</p>
-    </div>
-  </div>
-</div>
-</div> --}}
+// Call the renderNewReview function to render the initial reviews
+renderNewReview();
+
+</script>
+
+
