@@ -1,7 +1,7 @@
 const path = require('path');
 const express = require('express');
 const session = require('express-session');
-const exphbs = require('express-handlebars'); // Corrected import
+const exphbs = require('express-handlebars');
 const routes = require('./controllers');
 
 const sequelize = require('./config/connection');
@@ -9,6 +9,9 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+// Set up Handlebars.js 
+const hbs = exphbs.create({});
 
 const sess = {
   secret: 'Super secret secret',
@@ -27,22 +30,21 @@ const sess = {
 
 app.use(session(sess));
 
-// Create an instance of Express Handlebars
-const hbs = exphbs.create({});
-
-// Set up Handlebars as the template engine
+// Inform Express.js on which template engine to use
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'views/public/assets')));
 app.use(express.static(path.join(__dirname, 'views/public/css')));
 
+
+
+
 app.use(routes);
 
-// Default route
-
 sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log('Now listening at http://localhost:3001'));
+  app.listen(PORT, () => console.log('Now listening'));
 });
