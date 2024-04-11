@@ -80,10 +80,3 @@ nav {
   margin-right: auto;
 }
 
-@media only screen and (max-width: 600px) {
-  #dashboard,
-  #month-carousel {
-    width: 100%; /* Set the width to 100% for smaller screens */
-    margin: 0; /* Remove any margin */
-  }
-}
