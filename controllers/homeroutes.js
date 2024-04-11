@@ -2,6 +2,10 @@ const router = require('express').Router();
 const { Post } = require('../models'); // Import the Post model
 
 router.get('/', async (req, res) => {
+  if (!req.session.logged_in) {
+    res.redirect('/login');
+    return;
+  }
   const loggedIn = req.session.logged_in || false;
   res.render('homepage', { loggedIn });
 });
