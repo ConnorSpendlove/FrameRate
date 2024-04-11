@@ -1,7 +1,11 @@
 <!DOCTYPE html>
+
 <html>
 
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FrameRate</title>
   <!--Import Google Icon Font-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!--Import materialize.css-->
@@ -22,7 +26,8 @@
   <!-- Navbar -->
   <nav class="custom-nav red darken-4">
     <div class="nav-wrapper">
-      <a href="#" class="brand-logo custom-brand-logo" style="font-family: Orbitron;">FrameRate</a>
+      <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <a href="/" class="brand-logo custom-brand-logo" style="font-family: Orbitron;">FrameRate</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="#" onclick="redirectToHomepage()">Home</a></li>
         <li><a href="#" style="margin-right: 20px;" onclick="redirectToProfile()">Profile</a></li>
@@ -30,6 +35,12 @@
       </ul>
     </div>
   </nav>
+
+  <ul class="sidenav red darken-4" id="mobile-nav">
+        <li><a class="white-text" href="#" onclick="redirectToHomepage()">Home</a></li>
+        <li><a class="white-text" href="#" style="margin-right: 20px;" onclick="redirectToProfile()">Profile</a></li>
+        <li><a class="white-text" href="#" style="margin-right: 20px;" onclick="redirectToLogout()">Logout</a></li>
+  </ul>
 
   {{{body}}}
 
@@ -40,50 +51,47 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
   <script>
-
-    // We can customize the carousel by putting parameters in the carousel() function. For example, carousel({fullWidth: true}) would make the carousel a full width slider.
     $(document).ready(function () {
+      // Login Page JavaScript
+      M.updateTextFields();
+      // Carousel Initialization. We can customize the carousel by putting parameters in the carousel() function. For example, carousel({fullWidth: true}) would make the carousel a full width slider.
       $('.carousel').carousel({
         dist: -75,
         padding: 50,
         numVisible: 5,
         indicators: true,
       });
+      // Navbar Initialization
+      $('.sidenav').sidenav();
+      // JavaScript Modal
+      $('.modal').modal();
     });
 
-    // Login Page JavaScript
-    $(document).ready(function () { M.updateTextFields(); });
-
-    // JavaScript Modal
-    $(document).ready(function(){
-    $('.modal').modal();
-  });
-
-  function redirectToHomepage() {
-    window.location.href = "/";
-  }
-
-  function redirectToProfile() {
-    window.location.href = "/profile";
-  }
-
- async function redirectToLogout() {
-  try {
-    const response = await fetch('/api/user/logout', {
-      method: 'POST'
-    });
-
-    if (response.ok) {
-      console.log('Logged out successfully!');
-      window.location.href = '/'; // Redirect to homepage or another page after successful logout
-    } else {
-      const data = await response.json();
-      console.error('Failed to log out:', data);
+    function redirectToHomepage() {
+      window.location.href = "/";
     }
-  } catch (error) {
-    console.error('Error:', error);
-  }
-}
+
+    function redirectToProfile() {
+      window.location.href = "/profile";
+    }
+
+    async function redirectToLogout() {
+      try {
+        const response = await fetch('/api/user/logout', {
+          method: 'POST'
+        });
+
+        if (response.ok) {
+          console.log('Logged out successfully!');
+          window.location.href = '/'; // Redirect to homepage or another page after successful logout
+        } else {
+          const data = await response.json();
+          console.error('Failed to log out:', data);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
   </script>
 </body>
 
